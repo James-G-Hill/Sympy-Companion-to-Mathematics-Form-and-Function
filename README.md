@@ -1,3 +1,12 @@
-# maths_form_and_function
+# Sympy Companion to *Maths: Form and Function*
 
-Notes from the book Maths: Form and Function with Python
+These are my notes for *Maths: Form and Function* by Saunders Mac Lane.
+My notes have used `Python` programming language.
+I continue to update my notes to use the symbolic computation package `sympy`.
+
+More information can be found here:
+
+[sympy](https://www.sympy.org/en/index.html)
+
+Suggestions for improvements to my user of `sympy` are welcome.
+Please create a ticket if you would like to suggest a change.
