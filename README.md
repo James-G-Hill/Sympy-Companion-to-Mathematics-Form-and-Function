@@ -8,5 +8,5 @@ More information can be found here:
 
 [sympy](https://www.sympy.org/en/index.html)
 
-Suggestions for improvements to my user of `sympy` are welcome.
+Suggestions for improvements to my use of `sympy` are welcome.
 Please create a ticket if you would like to suggest a change.
