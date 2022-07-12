@@ -1,10 +1,22 @@
+from random import uniform
+
+
+class GroupTranslation:
+    """ Translation group. """
+
+    def get_example():
+        """ Return an example. """
+        t = Translation(x = uniform(-1, 1), y = uniform(-1, 1))
+        return t
+
+
 class Translation:
     """ Translates all objects on the plane. """
 
     def __init__(self, x: float, y: float):
         """
-        x_val: value to move.
-        y_val: value to move.
+        x: value to move.
+        y: value to move.
         """
         self.x = x
         self.y = y
@@ -21,7 +33,7 @@ class Translation:
         y_new = self.y + T2.y
         return Translation(x_new, y_new)
 
-    def translate(self, plane: list, inverse=False):
+    def act(self, plane: list, inverse=False):
         """
         plane: a list of objects on the plane.
         inverse: do the inverse of the transformation.

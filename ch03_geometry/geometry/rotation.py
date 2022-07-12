@@ -1,7 +1,21 @@
-from sympy import Point
+from random import uniform
+from sympy import (
+    pi,
+    Point
+)
 
 
-class Rotation():
+class GroupRotation:
+    """ Rotation group. """
+
+    def get_example():
+        """ Return an example. """
+        p = Point(uniform(-1, 1), uniform(-1, 1), evaluate = False)
+        r = Rotation(ang = uniform(0, pi*2), p = p)
+        return r
+
+
+class Rotation:
     """ Rotates all objects on the plane. """
 
     def __init__(self, ang: float, p=Point(0, 0)):
@@ -11,6 +25,7 @@ class Rotation():
         """
         self.p = p
         self.ang = ang
+        self.is_Point = False
 
     def __repr__(self):
         return 'Rotation(' + str(self.p) + ', ' + str(self.ang) + ')'
@@ -25,15 +40,15 @@ class Rotation():
             new_ang = self.ang + T2.ang
             return Rotation(new_ang, self.p)
 
-    def rotate(self, plane: list, reverse=False):
+    def act(self, plane: list, inverse=False):
         """
         plane: a list of objects on the plane.
-        reverse: rotate the opposite direction.
+        inverse: rotate the opposite direction.
         """
         new_plane = list()
 
         ang = self.ang
-        if reverse:
+        if inverse:
             ang = ang * -1
 
         for o in plane:
