@@ -1,3 +1,8 @@
+from .identity import (
+    GroupIdentity,
+    Identity
+)
+from .plane import Plane
 from random import uniform
 from sympy import (
     Line,
@@ -5,30 +10,39 @@ from sympy import (
 )
 
 
-class GroupReflection:
+class GroupReflection(GroupIdentity):
     """ Reflection group. """
 
-    def get_example():
+    def _repr_latex_(self):
+        return "$L$"
+
+    def get_example(self):
         """ Return an example. """
-        l = Line(
-            Point(uniform(-1, 1), uniform(-1, 1), evaluate = False),
-            Point(uniform(-1, 1), uniform(-1, 1), evaluate = False)
-        )
+        p1 = Point(uniform(-1, 1), uniform(-1, 1), evaluate = False)
+        p2 = Point(uniform(-1, 1), uniform(-1, 1), evaluate = False)
+        l = Line(p1, p2)
         return Reflection(l)
 
 
-class Reflection:
+class Reflection(Identity):
     """ Reflects objects on the plane across a line. """
 
-    def __init__(self, l: Line):
+    def __init__(self, l):
         """ l: The line to reflect across. """
         self.l = l
 
     def __repr__(self):
-        return 'Reflection(' + str(self.l) + ')'
+        return '\n'.join((
+            "Reflection(",
+            "  line = " + str(self.l),
+            ")"
+        ))
 
     def __str__(self):
-        return 'Reflection(' + str(self.l) + ')'
+        return self.__repr__()
+
+    def __add__(self, r):
+        return Identity()
 
     def __point_reflect(self, p: Point):
         s = self.l.perpendicular_segment(p)
@@ -39,14 +53,14 @@ class Reflection:
             new_y = s.p2.y + (s.p2.y - p.y)
             return Point(new_x, new_y)
 
-    def act(self, plane: list, inverse=False):
+    def act(self, plane: Plane, inverse=False):
         """
         plane: a list of objects on the plane.
         """
         if inverse:
             return plane
         else:
-            new_plane = list()
+            new_plane = Plane()
 
             for o in plane:
                 if o.is_Point:
@@ -61,3 +75,7 @@ class Reflection:
                     new_plane.append(t(*pnts))
             
             return new_plane
+
+    def inverse(self):
+        """ Return the inverse of the reflection. """
+        return self.l
